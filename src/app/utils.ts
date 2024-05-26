@@ -59,13 +59,15 @@ const getRandomCharacterPronounces = ({
 
   const pronounces = shuffleArray(Object.values(characters));
   const result = [answerPronounce];
-  for (let i = 0; i < amount - 1; i++) {
+  for (let i = 0; i < pronounces.length; i++) {
     if (pronounces[i] === answerPronounce) {
       continue;
     }
+    if (result.length === amount) {
+      break;
+    }
     result.push(pronounces[i]);
   }
-
   return shuffleArray(result);
 };
 
