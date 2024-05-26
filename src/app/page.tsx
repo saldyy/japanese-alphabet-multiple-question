@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { getQuestion } from "@/app/utils";
 import { Question } from "@/types";
@@ -11,41 +11,39 @@ export default function Home() {
 
   useEffect(() => {
     counterRef.current = setInterval(() => {
-      console.log('inhere')
+      console.log("inhere");
       setCount((prev) => prev - 1);
-    }, 1000)
+    }, 1000);
 
     return () => {
       clearInterval(counterRef.current);
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
     if (count) {
-      return
+      return;
     }
     clearInterval(counterRef.current);
-  }, [count])
-
+  }, [count]);
 
   useEffect(() => {
-    setQuestion(getQuestion({ characterType: 'hiragana' }))
-  }, [])
+    setQuestion(getQuestion({ characterType: "hiragana" }));
+  }, []);
 
   const onSubmitAnswer = (event: MouseEvent) => {
-    const target = event.target as HTMLButtonElement
-    console.log(target.value)
+    const target = event.target as HTMLButtonElement;
+    console.log(target.value);
     if (target.value === question?.answer) {
-      console.log('correct')
-      setQuestion(getQuestion({ characterType: 'hiragana' }))
+      console.log("correct");
+      setQuestion(getQuestion({ characterType: "hiragana" }));
       clearInterval(counterRef.current);
       setCount(30);
       counterRef.current = setInterval(() => {
         setCount((prev) => prev - 1);
-      }, 1000)
+      }, 1000);
     }
-  }
-
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -55,7 +53,14 @@ export default function Home() {
       <p>{question?.character}</p>
       <div className="grid grid-cols-2 gap-4">
         {question?.options.map((option, index) => (
-          <button key={index} value={option} className="bg-blue-500 text-white p-4 rounded-md" onMouseDown={onSubmitAnswer}>{option}</button>
+          <button
+            key={index}
+            value={option}
+            className="bg-blue-500 text-white p-4 rounded-md"
+            onMouseDown={onSubmitAnswer}
+          >
+            {option}
+          </button>
         ))}
       </div>
     </main>
