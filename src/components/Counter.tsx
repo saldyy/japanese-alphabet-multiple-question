@@ -1,6 +1,8 @@
 type CounterProps = {
-  time: number; // time in milliseconds
-  interval: number; // interval in milliseconds
-  onFinish: () => void;
+  time: number; // time in seconds
 };
-export default function Counter({ time, interval, onFinish }: CounterProps) {}
+export default function Counter({ time }: CounterProps) {
+
+  return <div>Time left: {time} seconds</div>;
+
+}
