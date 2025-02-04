@@ -1,23 +1,32 @@
 import { Question } from "@/types";
 import Alphabet from "./alphabet";
 
-type CharacterType = "hiragana" | "katakana" | "kanji";
+type AlphabetType = "hiragana" | "katakana" | "kanji";
+
+export const getQuestionsSet = (len: number, alphabetType: AlphabetType = "hiragana"): Question[] => {
+  const result: Question[] = [];
+  for (let i = 0; i < len; i++) {
+    result.push(getQuestion({ alphabetType }))
+  }
+
+  return result;
+}
 
 export const getQuestion = ({
-  characterType = "hiragana",
+  alphabetType: alphabetType = "hiragana",
 }: {
-  characterType: CharacterType;
+  alphabetType: AlphabetType;
 }): Question => {
-  if (!Alphabet[characterType]) {
+  if (!Alphabet[alphabetType]) {
     throw new Error("Invalid character type");
   }
 
-  const character = getRandomCharacters({ characterType });
-  const answer = Alphabet[characterType]![character];
+  const character = getRandomCharacters({ alphabetType: alphabetType });
+  const answer = Alphabet[alphabetType]![character];
   const options = getRandomCharacterPronounces({
     amount: 4,
     excludePronounce: answer,
-    characterType,
+    characterType: alphabetType,
   });
 
   return {
@@ -28,11 +37,11 @@ export const getQuestion = ({
 };
 
 const getRandomCharacters = ({
-  characterType = "hiragana",
+  alphabetType = "hiragana",
 }: {
-  characterType: CharacterType;
+  alphabetType: AlphabetType;
 }): string => {
-  const characters = Alphabet[characterType];
+  const characters = Alphabet[alphabetType];
   if (!characters) {
     throw new Error("Invalid character type");
   }
@@ -49,7 +58,7 @@ const getRandomCharacterPronounces = ({
 }: {
   amount: number;
   excludePronounce: string;
-  characterType: CharacterType;
+  characterType: AlphabetType;
 }): string[] => {
   // Get 3 random index in an array
   const characters = Alphabet[characterType];
