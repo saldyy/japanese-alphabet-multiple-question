@@ -1,7 +1,7 @@
 import { Question } from "@/types";
 import Alphabet from "./alphabet";
 
-type AlphabetType = "hiragana" | "katakana" | "kanji";
+export type AlphabetType = "hiragana" | "katakana" | "kanji";
 
 export const getQuestionsSet = (len: number, alphabetType: AlphabetType = "hiragana"): Question[] => {
   const result: Question[] = [];
